@@ -1,23 +1,172 @@
+
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SpriteForge</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Design System Configuration -->
+    <script>
+      tailwind.config = {
+        darkMode: ['class', '[data-theme="dark"]'],
+        theme: {
+          extend: {
+            colors: {
+              // Semantic Colors (mapped to CSS variables)
+              app: {
+                DEFAULT: 'rgb(var(--c-app-bg) / <alpha-value>)',
+                mesh: 'rgb(var(--c-app-mesh) / <alpha-value>)',
+              },
+              panel: {
+                DEFAULT: 'rgb(var(--c-panel-bg) / <alpha-value>)',
+                solid: 'rgb(var(--c-panel-solid) / <alpha-value>)',
+              },
+              surface: {
+                DEFAULT: 'rgb(var(--c-surface) / <alpha-value>)',
+                hover: 'rgb(var(--c-surface-hover) / <alpha-value>)',
+              },
+              border: {
+                base: 'rgb(var(--c-border) / <alpha-value>)',
+                highlight: 'rgb(var(--c-border-highlight) / <alpha-value>)',
+              },
+              txt: {
+                primary: 'rgb(var(--c-text-primary) / <alpha-value>)',
+                secondary: 'rgb(var(--c-text-secondary) / <alpha-value>)',
+                muted: 'rgb(var(--c-text-muted) / <alpha-value>)',
+              }
+            },
+            fontFamily: {
+              sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+              mono: ['JetBrains Mono', 'ui-monospace', 'SFMono-Regular', 'monospace'],
+            }
+          }
+        }
+      }
+    </script>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SpriteForge</title>
+    <style>
+      /* --- GLOBAL THEME VARIABLES --- */
+      :root {
+        font-size: 14px;
+        /* Default Theme (Dark Void) */
+        --c-app-bg: 2 0 5;          /* #020005 */
+        --c-app-mesh: 17 17 22;     
+        
+        --c-panel-bg: 17 24 39;     /* Gray-900 */
+        --c-panel-solid: 5 5 8;     
+        
+        --c-surface: 0 0 0;         /* Black */
+        --c-surface-hover: 255 255 255; 
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
-    rel="stylesheet">
-  <script type="module" crossorigin src="./assets/index-cdFy-bAv.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-CcOrVK8t.css">
+        --c-border: 255 255 255;    /* White */
+        --c-border-highlight: 99 102 241; 
+
+        --c-text-primary: 243 244 246;   
+        --c-text-secondary: 156 163 175; 
+        --c-text-muted: 107 114 128;     
+        
+        --gradient-blob-1: 76, 29, 149; /* Purple */
+        --gradient-blob-2: 6, 182, 212; /* Cyan */
+        
+        --checker-color: rgba(255, 255, 255, 0.05);
+      }
+
+      /* Professional Light Theme (Frosted Glass) */
+      [data-theme='light'] {
+        --c-app-bg: 236 242 255;    /* Very light Blue/Slate background */
+        --c-app-mesh: 203 213 225;  
+        
+        /* Panels: Slightly tinted white for that "glass" effect on top of blueish bg */
+        --c-panel-bg: 255 255 255;  
+        --c-panel-solid: 241 245 249; 
+        
+        --c-surface: 226 232 240;   /* Slate-200 (Input backgrounds) */
+        --c-surface-hover: 15 23 42; 
+
+        --c-border: 148 163 184;    /* Slate-400 */
+        --c-border-highlight: 79 70 229; 
+
+        --c-text-primary: 15 23 42;   /* Slate-900 (High contrast) */
+        --c-text-secondary: 51 65 85; /* Slate-700 */
+        --c-text-muted: 100 116 139;   /* Slate-500 */
+        
+        --gradient-blob-1: 196 181 253; /* Violet-300 (Lighter) */
+        --gradient-blob-2: 103 232 249; /* Cyan-300 (Lighter) */
+        
+        --checker-color: rgba(0, 0, 0, 0.05);
+      }
+
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent; 
+      }
+      ::-webkit-scrollbar-thumb {
+        background: rgba(156, 163, 175, 0.3); /* Adaptive gray */
+        border-radius: 10px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: rgba(156, 163, 175, 0.5); 
+      }
+      
+      .checkerboard {
+        background-color: transparent;
+        background-image:
+          linear-gradient(45deg, var(--checker-color) 25%, transparent 25%),
+          linear-gradient(-45deg, var(--checker-color) 25%, transparent 25%),
+          linear-gradient(45deg, transparent 75%, var(--checker-color) 75%),
+          linear-gradient(-45deg, transparent 75%, var(--checker-color) 75%);
+        background-size: 20px 20px;
+        background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+      }
+      
+      /* Mesh Gradient Background using Variables */
+      body {
+        background-color: rgb(var(--c-app-bg));
+        color: rgb(var(--c-text-primary));
+        background-image: 
+          radial-gradient(circle at 0% 0%, rgba(var(--gradient-blob-1), 0.15), transparent 40%),
+          radial-gradient(circle at 100% 0%, rgba(var(--gradient-blob-2), 0.1), transparent 30%),
+          radial-gradient(circle at 100% 100%, rgba(var(--gradient-blob-1), 0.1), transparent 40%),
+          radial-gradient(circle at 0% 50%, rgba(var(--gradient-blob-2), 0.05), transparent 50%);
+        background-attachment: fixed;
+        background-size: cover;
+      }
+
+      input, textarea {
+        user-select: text;
+      }
+    </style>
+
+<!-- Styles are defined inline for static deployment compatibility -->
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://aistudiocdn.com/react@^19.2.1",
+    "react/": "https://aistudiocdn.com/react@^19.2.1/",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.1/",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.469.0",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.31.0",
+    "jszip": "https://aistudiocdn.com/jszip@^3.10.1",
+    "three": "https://aistudiocdn.com/three@^0.181.2",
+    "@react-three/fiber": "https://aistudiocdn.com/@react-three/fiber@^9.4.2",
+    "@react-three/drei": "https://aistudiocdn.com/@react-three/drei@^10.7.7",
+    "@react-three/postprocessing": "https://aistudiocdn.com/@react-three/postprocessing@^3.0.4",
+    "pako": "https://aistudiocdn.com/pako@^2.1.0",
+    "upng-js": "https://aistudiocdn.com/upng-js@^2.1.0",
+    "yup": "https://aistudiocdn.com/yup@^1.4.0",
+    "react-dom": "https://esm.sh/react-dom@^19.2.3"
+  }
+}
+</script>
+  <script type="module" crossorigin src="./assets/index-CF05PFvC.js"></script>
 </head>
-
-<body class="font-sans antialiased overflow-hidden select-none text-txt-primary">
-  <div id="root" class="h-screen w-screen flex flex-col"></div>
+  <body class="font-sans antialiased overflow-hidden select-none text-txt-primary">
+    <div id="root" class="h-screen w-screen flex flex-col"></div>
 </body>
-
 </html>
