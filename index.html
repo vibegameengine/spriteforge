@@ -1,17 +1,55 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>SpriteForge</title>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SpriteForge</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
-    rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Design System Configuration -->
+    <script>
+      tailwind.config = {
+        darkMode: ['class', '[data-theme="dark"]'],
+        theme: {
+          extend: {
+            colors: {
+              // Semantic Colors (mapped to CSS variables)
+              app: {
+                DEFAULT: 'rgb(var(--c-app-bg) / <alpha-value>)',
+                mesh: 'rgb(var(--c-app-mesh) / <alpha-value>)',
+              },
+              panel: {
+                DEFAULT: 'rgb(var(--c-panel-bg) / <alpha-value>)',
+                solid: 'rgb(var(--c-panel-solid) / <alpha-value>)',
+              },
+              surface: {
+                DEFAULT: 'rgb(var(--c-surface) / <alpha-value>)',
+                hover: 'rgb(var(--c-surface-hover) / <alpha-value>)',
+              },
+              border: {
+                base: 'rgb(var(--c-border) / <alpha-value>)',
+                highlight: 'rgb(var(--c-border-highlight) / <alpha-value>)',
+              },
+              txt: {
+                primary: 'rgb(var(--c-text-primary) / <alpha-value>)',
+                secondary: 'rgb(var(--c-text-secondary) / <alpha-value>)',
+                muted: 'rgb(var(--c-text-muted) / <alpha-value>)',
+              }
+            },
+            fontFamily: {
+              sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+              mono: ['JetBrains Mono', 'ui-monospace', 'SFMono-Regular', 'monospace'],
+            }
+          }
+        }
+      }
+    </script>
 
   <!-- Yandex.Metrika counter -->
   <script type="text/javascript" >
@@ -29,14 +67,13 @@
     });
   </script>
   <!-- /Yandex.Metrika counter -->
-  <script type="module" crossorigin src="./assets/index-BaRIKt41.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-XxggprKq.css">
+  <script type="module" crossorigin src="./assets/index-COetk9Lt.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-DXE5JROA.css">
 </head>
 
-<body class="font-sans antialiased overflow-hidden select-none text-txt-primary">
+<body class="font-sans antialiased overflow-hidden select-none text-txt-primary" oncontextmenu="return false;">
   <!-- Yandex.Metrika counter (noscript) -->
   <noscript><div><img src="https://mc.yandex.ru/watch/109292451" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
   <div id="root" class="h-screen w-screen flex flex-col"></div>
 </body>
-
 </html>
